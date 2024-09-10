@@ -79,7 +79,6 @@ func (v *Verifier) SetKeys(pemkeys map[string][]byte) error {
 	}
 	v.Lock()
 	defer v.Unlock()
-	log.Println("keys.........in SetKeys ", keys)
 	v.Keys = keys
 	return nil
 }
@@ -98,7 +97,6 @@ func (v *Verifier) JWKKeys() []byte {
 
 func readKeyFiles(dirname string) (map[string][]byte, error) {
 	items, err := os.ReadDir(dirname)
-	log.Println("items from readKeyFiles............", items, "error............", err)
 	if err != nil {
 		return nil, err
 	}
@@ -130,7 +128,6 @@ func (v *Verifier) reloadKeyFiles(path string) error {
 }
 
 func (v *Verifier) MaintainKeys(ctx context.Context, path string) error {
-	log.Println("path...........", path)
 	err := v.reloadKeyFiles(path)
 	if err != nil {
 		return err
@@ -196,7 +193,6 @@ func (v *Verifier) KeyFunc() jwt.Keyfunc {
 	return func(token *jwt.Token) (interface{}, error) {
 		v.Lock()
 		defer v.Unlock()
-		log.Println("hedaer...........", token.Header)
 		kidi, found := token.Header["kid"]
 		if !found {
 			return nil, fmt.Errorf("no `kid` in header")
@@ -205,12 +201,8 @@ func (v *Verifier) KeyFunc() jwt.Keyfunc {
 		if !ok {
 			return nil, fmt.Errorf("cannot convert `kid` to string")
 		}
-		log.Println("Keys listed....", v.Keys)
-		log.Println("kid......................", kid)
 		key, found := v.Keys[kid]
-		log.Println("result.....................", key, found)
 		if !found {
-			log.Println("key is not foound......", key, found)
 			return nil, fmt.Errorf("no such key %s", kid)
 		}
 
