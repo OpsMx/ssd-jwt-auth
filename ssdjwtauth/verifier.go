@@ -177,7 +177,7 @@ func (v *Verifier) VerifyToken(tokenString string) (*SsdJwtClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &SsdJwtClaims{}, v.KeyFunc(), v.parseOptions...)
 	if err != nil {
 		// log.Printf("Proceeding with Unverified token as ParseWithClaims gave error:%v", err)
-		// // SRINI: Unable to get the Signature Verificatoin to work. For not turning it off
+		// // SRINI: Unable to get the Signature Verification to work. For not turning it off
 		// p := jwt.NewParser(v.parseOptions...)
 		// token, _, err = p.ParseUnverified(tokenString, &SsdJwtClaims{})
 		// if err != nil {
