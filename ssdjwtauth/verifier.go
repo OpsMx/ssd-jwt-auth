@@ -176,14 +176,14 @@ func parseKeys(pemkeys map[string][]byte) (map[string]crypto.PublicKey, error) {
 func (v *Verifier) VerifyToken(tokenString string) (*SsdJwtClaims, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &SsdJwtClaims{}, v.KeyFunc(), v.parseOptions...)
 	if err != nil {
-		log.Printf("Proceeding with Unverified token as ParseWithClaims gave error:%v", err)
-		// SRINI: Unable to get the Signature Verificatoin to work. For not turning it off
-		p := jwt.NewParser(v.parseOptions...)
-		token, _, err = p.ParseUnverified(tokenString, &SsdJwtClaims{})
-		if err != nil {
-			return nil, err
-		}
-		// return nil, err
+		// log.Printf("Proceeding with Unverified token as ParseWithClaims gave error:%v", err)
+		// // SRINI: Unable to get the Signature Verificatoin to work. For not turning it off
+		// p := jwt.NewParser(v.parseOptions...)
+		// token, _, err = p.ParseUnverified(tokenString, &SsdJwtClaims{})
+		// if err != nil {
+		// 	return nil, err
+		// }
+		return nil, err
 	}
 	claims, ok := token.Claims.(*SsdJwtClaims)
 	if !ok {
