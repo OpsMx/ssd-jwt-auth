@@ -201,6 +201,7 @@ func (v *Verifier) KeyFunc() jwt.Keyfunc {
 		if !ok {
 			return nil, fmt.Errorf("cannot convert `kid` to string")
 		}
+
 		key, found := v.Keys[kid]
 		if !found {
 			return nil, fmt.Errorf("no such key %s", kid)
