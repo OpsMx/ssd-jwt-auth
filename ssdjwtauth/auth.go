@@ -155,7 +155,7 @@ func SSDServiceClaimsToClaims(c *SSDServiceClaims) (SSDClaims, error) {
 }
 
 func SSDInternalClaimsFromClaims(s *SsdJwtClaims) (*SSDInternalClaims, error) {
-	if s.SSDCLaims.Type != "internal-account/v1" {
+	if s.SSDCLaims.Type != SSDTokenTypeInternal {
 		return nil, fmt.Errorf("cannot parse internal claims from type %s", s.SSDCLaims.Type)
 	}
 	authorizations := s.SSDCLaims.Authorizations

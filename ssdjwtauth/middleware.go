@@ -69,7 +69,7 @@ func TokenFromHeaders(r *http.Request) string {
 	}
 	splitToken := strings.Split(auth, "Bearer ")
 	if len(splitToken) < 2 {
-		return "Header does not contain TOKEN"
+		return auth
 	}
 	return splitToken[1]
 }
